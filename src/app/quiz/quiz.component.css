@@ -1,0 +1,62 @@
+.flash-card {
+    padding: 10px;
+    width: 70%;
+    display: flex;
+    flex-direction: column; /* Change to column */
+    align-items: center;
+    border: 3px solid black; /* Add border style */
+    margin: 2% ; 
+}
+
+.flash-card-options {
+    margin-top: 10px; /* Add some spacing between flash-card and flash-card-options */
+}
+
+.done-button{
+    margin-top: 5px;
+    border-radius: 8px;
+    width: 100px;
+}
+
+.submit-quiz-button{
+    padding: 5px;
+    display: flex;
+    border-radius: 8px;
+    margin: auto;
+}
+
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.user-selection {
+    margin-top:10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px; 
+}
+  
+.select-container {
+    margin-bottom: 20px;
+}
+
+.user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* height: 100vh; */
+    margin-top: 5%;
+}
+
+.user-preference-button{
+    padding: 5px;
+    display: flex;
+    border-radius: 8px;
+    /* margin: auto; */
+}

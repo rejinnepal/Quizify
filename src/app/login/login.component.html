@@ -1,0 +1,30 @@
+<div ngClass="login-box">
+    <mat-card ngClass="login-inner-box">
+        <mat-card-title>Login</mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="form">
+                <p>
+                    <mat-form-field>
+                    <input type="text" matInput name="username" placeholder="Username" formControlName="username">
+                    </mat-form-field>
+                </p>
+                
+                <p>
+                    <mat-form-field>
+                    <input type="password" matInput name="password" placeholder="Password" formControlName="password">
+                    </mat-form-field>
+                </p>
+                
+                <p *ngIf="error" class="error">
+                    {{ error }}
+                </p>
+            
+                <div class="button">
+                    <button type="submit" mat-button onClick="submit()">Login</button>
+                </div>
+            
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+

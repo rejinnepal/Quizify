@@ -1,0 +1,90 @@
+<div class="user-container">
+    <h4>Set your preferences</h4>
+    <div class="user-selection">
+        <div class="select-container">
+            <h6>Select difficulty level</h6>
+            <mat-form-field>
+            <mat-label>Difficulty</mat-label>
+            <select matNativeControl required [(ngModel)]="difficultyLevelSelected">
+                <option [value]="difficultyLevel" *ngFor="let difficultyLevel of difficultyLevels">{{difficultyLevel}}</option>
+            </select>
+            </mat-form-field>
+        </div>
+        
+        <div class="select-container">
+            <h6>Select subject</h6>
+            <mat-form-field>
+            <mat-label>Subject</mat-label>
+            <select matNativeControl required [(ngModel)]="subjectSelected">
+                <option [value]="subject" *ngFor="let subject of subjects">{{subject}}</option>
+            </select>
+            </mat-form-field>
+        </div>
+        
+        <div class="select-container">
+            <h6>Select number of questions</h6>
+            <mat-form-field>
+            <mat-label>Number of questions</mat-label>
+            <select matNativeControl required [(ngModel)]="numberofQuestionsSelected">
+                <option [value]="numberOfQuestion" *ngFor="let numberOfQuestion of numberOfQuestions">{{numberOfQuestion}}</option>
+            </select>
+            </mat-form-field>
+        </div>
+    </div>
+    <button *ngIf="!preferencesSet" class="user-preference-button" (click)="fetchQuestions(difficultyLevelSelected, subjectSelected, numberofQuestionsSelected)">Fetch questions</button>
+</div>
+
+<div class="center-container" *ngIf="preferencesSet">
+    Please enter the correct answer
+    <div *ngFor="let question of quizQuestions" class="flash-card">
+        <h5>{{ question.question }}</h5>
+        <form>
+            <div *ngFor="let option of question.options" class="flash-card-options">
+                <label>
+                    <input type="radio" [value]="option" name="question.id" [(ngModel)]="selectedOption"> {{option}}
+                </label>
+            </div>
+        </form>
+        <button class="done-button" (click)="addSelectedOption(selectedOption, question)">✅</button>
+    </div>
+    <button class="submit-quiz-button" (click)="submitQuiz()">Submit Quiz</button>
+</div>
+
+<div *ngIf="quizSubmitted" class="center-container">
+    <h2>Score: {{totalScore}} / {{totalAttempted}}</h2>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Question</th>
+            <th scope="col">Selected Option</th>
+            <th scope="col">Correct Answer</th>
+            <th scope="col">Status</th>
+            <th scope="col">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of quizResults">
+            <td>{{result.question}}</td>
+            <td>{{result.selectedOption}}</td>
+            <td>{{result.correctOption}}</td>
+            <td>{{result.correctStatus}}</td>
+            <td>{{result.score}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+  
+
+
+
+<!-- <form (submit)="addQuestion()">
+<input type="text" [(ngModel)]="newQuestion" placeholder="Enter subject">
+  <input type="text" [(ngModel)]="newQuestion" placeholder="Enter question">
+  <input type="text" [(ngModel)]="newQuestion" placeholder="Enter Option 1">
+  <input type="text" [(ngModel)]="newQuestion" placeholder="Enter Option 2">
+  <input type="text" [(ngModel)]="newQuestion" placeholder="Enter Option 3">
+  <input type="text" [(ngModel)]="newQuestion" placeholder="Enter Option 4">
+  <input type="text" [(ngModel)]="newQuestion" placeholder="Correct Option">
+  <input type="text" [(ngModel)]="newQuestion" placeholder="Difficulty-level">
+  <button type="submit">Add Question</button>
+</form> -->
