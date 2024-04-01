@@ -18,6 +18,7 @@ import {MatSelectModule } from '@angular/material/select';
 import { RegisterComponent } from './register/register.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { DeleteQuestionComponent } from './delete-question/delete-question.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { DeleteQuestionComponent } from './delete-question/delete-question.compo
     RegisterComponent,
     AddQuestionComponent,
     DeleteQuestionComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

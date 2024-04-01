@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import {RegisterComponent} from './register/register.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { DeleteQuestionComponent } from './delete-question/delete-question.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   {component: QuizComponent, path: 'app'},
@@ -14,6 +15,7 @@ const routes: Routes = [
   { component: RegisterComponent, path: 'register'},
   { component: AddQuestionComponent, path: 'addQuestion'},
   { component: DeleteQuestionComponent, path: 'deleteQuestion'},
+  {component: ContactComponent, path: "contact"}
 ];
 
 @NgModule({
