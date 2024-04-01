@@ -54,26 +54,26 @@
     <h2>Score: {{totalScore}} / {{totalAttempted}}</h2>
     <table class="table table-striped">
         <thead>
-          <tr>
+            <tr>
             <th scope="col">Question</th>
             <th scope="col">Selected Option</th>
             <th scope="col">Correct Answer</th>
             <th scope="col">Status</th>
             <th scope="col">Score</th>
-          </tr>
+            </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let result of quizResults">
+            <tr *ngFor="let result of quizResults">
             <td>{{result.question}}</td>
             <td>{{result.selectedOption}}</td>
             <td>{{result.correctOption}}</td>
             <td>{{result.correctStatus}}</td>
             <td>{{result.score}}</td>
-          </tr>
+            </tr>
         </tbody>
-      </table>
+        </table>
 </div>
-  
+
 
 
 

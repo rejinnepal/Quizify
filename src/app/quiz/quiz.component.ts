@@ -27,7 +27,7 @@ export class QuizComponent {
   subjectSelected: String = "";
   numberOfQuestions: Number[] = [10, 20, 30, 40, 50];
   numberofQuestionsSelected: Number = 20;
-  
+
   constructor(private quizService: QuizService) { }
 
   ngOnInit(): void {

@@ -2,7 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const app = express();
+const cors = require('cors');
+
 app.use(bodyParser.json());
+app.use(cors());
 
 // Establish the database collection
 const db = mysql.createConnection({
@@ -21,7 +24,7 @@ db.connect(function(error){
 });
 
 // Establish the port
-port = 8085
+port = 8090
 app.listen(port, function check(error){
   if (error) {
     console.log("Error: " + error.message);
@@ -50,7 +53,7 @@ app.post("/api/users/add", (req, res) => {
 });
 
 // View users
-app.get("/api/users", (req, res) => {
+app.get("/api/users", async (req, res) => {
   var sql = "SELECT * FROM USERS";
   db.query(sql, function(error, result){
     if (error){
