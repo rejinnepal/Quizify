@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(cors());
  
 const mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
 // mongodb+srv://rejinnepal815:<password>@cluster0.lapkezp.mongodb.net/
 // mongodb+srv://rejinnepal815:<password>@cluster0.hjhnoq7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 mongoose
@@ -26,9 +27,7 @@ mongoose
         console.log("Error while connecting to Mongo: " + err);
     });
 
-
 const questionSchema = new mongoose.Schema({
-    id: { type: Number, required: true },
     subject: { type: String, required: true },
     question: { type: String, required: true },
     options: [{ type: String, required: true }],
@@ -48,6 +47,57 @@ app.get("/questions", async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+app.post("/questions/add", async (req, res) => {
+    try {
+        const newQuestion = new QuestionModel(req.body); // Assuming the request body contains the question data
+        const savedQuestion = await newQuestion.save();
+        res.status(201).json(savedQuestion);
+    } catch (err) {
+        console.error("Error while creating new question:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+app.delete("/questions/delete/:id", async (req, res) => {
+    try {
+        const questionId = req.params.id;
+        
+        const deletedQuestion = await QuestionModel.findByIdAndDelete(questionId);
+        
+        if (!deletedQuestion) {
+            return res.status(404).json({ error: "Question not found" });
+        }
+        
+        res.send({ message: "Question successfully deleted" });
+    } catch (err) {
+        console.error("Error while deleting question:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+app.put("/questions/update/:id", async (req, res) => {
+    try {
+        const questionId = req.params.id;
+        const updateData = req.body;
+
+        const updatedQuestion = await QuestionModel.findByIdAndUpdate(
+            questionId, 
+            updateData, 
+            { new: true, runValidators: true }
+        );
+        
+        if (!updatedQuestion) {
+            return res.status(404).json({ error: "Question not found or update failed" });
+        }
+        
+        res.json({ message: "Question successfully updated", question: updatedQuestion });
+    } catch (err) {
+        console.error("Error while updating question:", err);
+        res.status(500).json({ error: "Internal server error", details: err });
+    }
+});
+
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
