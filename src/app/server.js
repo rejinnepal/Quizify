@@ -31,7 +31,8 @@ const questionSchema = new mongoose.Schema({
     subject: { type: String, required: true },
     question: { type: String, required: true },
     options: [{ type: String, required: true }],
-    correct_option: { type: String, required: true },
+    // correct_option: { type: String, required: true },
+    correct_answer: { type: String, required: true },
     difficulty_level: { type: Number, required: true }
 });
 
@@ -59,22 +60,45 @@ app.post("/questions/add", async (req, res) => {
     }
 });
 
-app.delete("/questions/delete/:id", async (req, res) => {
+// app.delete("/questions/delete/:id", async (req, res) => {
+//     try {
+//         const questionId = req.params.id;
+        
+//         const deletedQuestion = await QuestionModel.findByIdAndDelete(questionId);
+        
+//         if (!deletedQuestion) {
+//             return res.status(404).json({ error: "Question not found" });
+//         }
+        
+//         res.send({ message: "Question successfully deleted" });
+//     } catch (err) {
+//         console.error("Error while deleting question:", err);
+//         res.status(500).json({ error: "Internal server error" });
+//     }
+// });
+
+app.delete("/questions/delete/:question", async (req, res) => {
     try {
-        const questionId = req.params.id;
+        const questionText = req.params.question;
         
-        const deletedQuestion = await QuestionModel.findByIdAndDelete(questionId);
-        
+        // Ensure questionText is provided
+        if (!questionText) {
+            return res.status(400).json({ error: "No question text provided" });
+        }
+
+        const deletedQuestion = await QuestionModel.findOneAndDelete({ question: questionText });
+
         if (!deletedQuestion) {
             return res.status(404).json({ error: "Question not found" });
         }
-        
+
         res.send({ message: "Question successfully deleted" });
     } catch (err) {
         console.error("Error while deleting question:", err);
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
 
 app.put("/questions/update/:id", async (req, res) => {
     try {

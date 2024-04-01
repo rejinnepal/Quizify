@@ -42,9 +42,23 @@ import { Question } from './question.model';
 })
 export class QuizService {
 
+  private baseUrl = 'http://localhost:8000/questions';
+
   constructor(private http: HttpClient) { }
 
   getQuestions(): Observable<Question[]> {
-    return this.http.get<Question[]>('http://localhost:8000/questions');
+    return this.http.get<Question[]>(`${this.baseUrl}`);
+  }
+
+  addQuestion(question: Question): Observable<Question> {
+    return this.http.post<Question>(`${this.baseUrl}/add`, question);
+  }
+
+  updateQuestion(id: string, question: Partial<Question>): Observable<Question> {
+    return this.http.put<Question>(`${this.baseUrl}/update/${id}`, question);
+  }
+
+  deleteQuestion(question: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete/${encodeURIComponent(question)}`);
   }
 }

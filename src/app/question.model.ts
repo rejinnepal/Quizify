@@ -1,9 +1,7 @@
 export interface Question {
-  id: Number;
-  subject: String;
-  question: String;
-  options: String[],
-  correct_answer: String,
+  subject: string;
+  question: string;
+  options: string[],
+  correct_answer: string,
   difficulty_level: Number;
 }
-  

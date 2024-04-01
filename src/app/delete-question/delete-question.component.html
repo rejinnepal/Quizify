@@ -1,0 +1,9 @@
+<div class="center-container">
+    <h3>Delete your questions</h3>
+</div>
+<div class="center-container">
+    <div *ngFor="let question of questions; let i = index" class="question-container">
+        <p>{{i+1}}. {{question.question}}</p>
+        <button (click)="deleteQuestion(question.question)" class="delete-button"><span class="material-symbols-outlined">delete</span></button>
+    </div>
+</div>

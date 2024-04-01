@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import {MatSelectModule } from '@angular/material/select';
 import { RegisterComponent } from './register/register.component';
+import { AddQuestionComponent } from './add-question/add-question.component';
+import { DeleteQuestionComponent } from './delete-question/delete-question.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { RegisterComponent } from './register/register.component';
     LoginComponent,
     HomeComponent,
     RegisterComponent,
+    AddQuestionComponent,
+    DeleteQuestionComponent,
   ],
   imports: [
     BrowserModule,

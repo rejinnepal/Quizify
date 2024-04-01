@@ -1,0 +1,52 @@
+<section class="vh-100" class="main-container">
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <h4> Thank you for you helping this community by adding a question!</h4>
+
+          <form class="form">
+  
+            <div class="form-outline mb-4">
+                <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter subject" [(ngModel)]="subject" [ngModelOptions]="{standalone:true}"/>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter question" [(ngModel)]="question" [ngModelOptions]="{standalone:true}"/>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter first option" [(ngModel)]="option1" [ngModelOptions]="{standalone:true}"/>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter second option" [(ngModel)]="option2" [ngModelOptions]="{standalone:true}"/>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter third option" [(ngModel)]="option3" [ngModelOptions]="{standalone:true}"/>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter fourth option" [(ngModel)]="option4" [ngModelOptions]="{standalone:true}"/>
+            </div>
+            
+            <div class="form-outline mb-3">
+              <input type="text" id="form3Example4" class="form-control form-control-lg" placeholder="Enter the correct option" [(ngModel)]="correct_answer" [ngModelOptions]="{standalone:true}"/>
+            </div>
+
+            <div class="form-outline mb-3">
+                <input type="text" id="form3Example4" class="form-control form-control-lg" placeholder="Enter difficulty level" [(ngModel)]="difficulty_level" [ngModelOptions]="{standalone:true}"/>
+            </div>
+
+            <div class="center-container">
+                <button type="submit" (click)="submitQuestion()" class="add-button">Add this question</button>
+            </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+

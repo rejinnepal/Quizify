@@ -1,4 +1,13 @@
-<div class="user-container">
+<div class="add-question-button-container" *ngIf="!preferencesSet">
+    <button class="add-questions-button" routerLink="/addQuestion">
+        <span class="material-symbols-outlined">add</span>Add more questions
+    </button>
+    <button class="delete-questions-button" routerLink="/deleteQuestion">
+        <span class="material-symbols-outlined">remove</span>Delete questions
+    </button>
+</div>
+
+<div class="user-container" *ngIf="!preferencesSet">
     <h4>Set your preferences</h4>
     <div class="user-selection">
         <div class="select-container">
@@ -31,9 +40,15 @@
             </mat-form-field>
         </div>
     </div>
-    <button *ngIf="!preferencesSet" class="user-preference-button" (click)="fetchQuestions(difficultyLevelSelected, subjectSelected, numberofQuestionsSelected)">Fetch questions</button>
+    <button class="user-preference-button" (click)="fetchQuestions(difficultyLevelSelected, subjectSelected, numberofQuestionsSelected)">Fetch questions</button>
 </div>
 
+<div *ngIf="preferencesSet" class="set-preferences-box">
+    <p>Difficulty Level: {{difficultyLevelSelected}}</p>
+    <p>Subject: {{subjectSelected}}</p>
+    <p>Number of questions: {{numberofQuestionsSelected}}</p>
+</div>
+    
 <div class="center-container" *ngIf="preferencesSet">
     Please enter the correct answer
     <div *ngFor="let question of quizQuestions" class="flash-card">
@@ -74,17 +89,11 @@
         </table>
 </div>
 
-
-
-
-<!-- <form (submit)="addQuestion()">
-<input type="text" [(ngModel)]="newQuestion" placeholder="Enter subject">
-  <input type="text" [(ngModel)]="newQuestion" placeholder="Enter question">
-  <input type="text" [(ngModel)]="newQuestion" placeholder="Enter Option 1">
-  <input type="text" [(ngModel)]="newQuestion" placeholder="Enter Option 2">
-  <input type="text" [(ngModel)]="newQuestion" placeholder="Enter Option 3">
-  <input type="text" [(ngModel)]="newQuestion" placeholder="Enter Option 4">
-  <input type="text" [(ngModel)]="newQuestion" placeholder="Correct Option">
-  <input type="text" [(ngModel)]="newQuestion" placeholder="Difficulty-level">
-  <button type="submit">Add Question</button>
-</form> -->
+<div class="edit-question-button-container" *ngIf="quizSubmitted">
+    <button class="add-questions-button" routerLink="/addQuestion">
+        <span class="material-symbols-outlined">add</span>Add more questions
+    </button>
+    <button class="delete-questions-button" routerLink="/deleteQuestion">
+        <span class="material-symbols-outlined">add</span>Delete questions
+    </button>
+</div>

@@ -1,0 +1,33 @@
+/* .center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+} */
+
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.question-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    margin-top: 5px;
+}
+
+.question-container p {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.question-container button {
+    margin-left: 10px;
+}
+
+.delete-button{
+    background-color: rgb(249, 48, 48);
+}
