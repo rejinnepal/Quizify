@@ -9,6 +9,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* height: 20vh; */
+    min-height: 90vh;
+    margin-top: 20px;
 }
 
 .question-container {
@@ -16,7 +19,7 @@
     align-items: center;
     justify-content: space-between;
     width: 50%;
-    margin-top: 5px;
+    margin-top: 15px;
 }
 
 .question-container p {
@@ -30,4 +33,12 @@
 
 .delete-button{
     background-color: rgb(249, 48, 48);
+}
+
+.delete-completion-button{
+    border-radius: 8px;
+    background-color: greenyellow;
+    width: 150px;
+    height: 40px;
+    padding: 5px;
 }

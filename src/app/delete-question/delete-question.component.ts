@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { QuizService } from '../quiz.service';
 import { Question } from '../question.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delete-question',
@@ -9,7 +10,7 @@ import { Question } from '../question.model';
 })
 export class DeleteQuestionComponent {
   questions: Question[] = [];
-  constructor(private quizService: QuizService) { }
+  constructor(private quizService: QuizService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadQuestions();
@@ -40,5 +41,8 @@ export class DeleteQuestionComponent {
     this.loadQuestions();
   }
 
+  deletionComplete(){
+    this.router.navigate(['./app'])
+  }
 
 }

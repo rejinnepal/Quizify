@@ -15,7 +15,8 @@ const routes: Routes = [
   { component: RegisterComponent, path: 'register'},
   { component: AddQuestionComponent, path: 'addQuestion'},
   { component: DeleteQuestionComponent, path: 'deleteQuestion'},
-  {component: ContactComponent, path: "contact"}
+  {component: ContactComponent, path: "contact"},
+  {path: '**', redirectTo: '/home'}
 ];
 
 @NgModule({

@@ -1,3 +1,7 @@
+.main-container{
+    min-height:100vh;
+}
+
 .flash-card {
     padding: 10px;
     width: 70%;
@@ -23,6 +27,8 @@
     display: flex;
     border-radius: 8px;
     margin: auto;
+    background-color: green;
+    color: white;
 }
 
 .center-container {
@@ -50,14 +56,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* height: 100vh; */
+    /* height: 50vh; */
     margin-top: 5%;
 }
 
 .user-preference-button{
     padding: 5px;
-    display: flex;
+    /* display: flex; */
     border-radius: 8px;
+    background-color: green;
+    color: white;
+    width: 100px;
+    text-align: center;
 }
 
 .set-preferences-box {
