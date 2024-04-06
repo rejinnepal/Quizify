@@ -38,11 +38,6 @@ export class RegisterComponent {
   constructor(private http: HttpClient, private router: Router) {
     this.loadUsers();
    }
-
-  show(){
-    console.log(this.users);
-    console.log(this.allEmails);
-  }
   
   getAllUsers(): Observable<User[]> {
     return this.http.get<{status: boolean, data: User[]}>('http://localhost:8090/api/users').pipe(map(response => response.data));

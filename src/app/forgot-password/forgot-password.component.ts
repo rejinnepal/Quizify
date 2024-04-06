@@ -48,11 +48,6 @@ export class ForgotPasswordComponent {
     );
   }
 
-  show(){
-    console.log(this.users);
-    console.log(this.allEmails);
-  }
-
   getUserDetails(email: string): Observable<User> {
     return this.http.get<{status: boolean, data: User[], message?: string}>(`${this.baseUrl}users/${email}`).pipe(
       map(response => {
