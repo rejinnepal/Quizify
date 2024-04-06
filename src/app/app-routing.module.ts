@@ -7,6 +7,7 @@ import {RegisterComponent} from './register/register.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { DeleteQuestionComponent } from './delete-question/delete-question.component';
 import { ContactComponent } from './contact/contact.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {component: QuizComponent, path: 'app'},
@@ -16,6 +17,7 @@ const routes: Routes = [
   { component: AddQuestionComponent, path: 'addQuestion'},
   { component: DeleteQuestionComponent, path: 'deleteQuestion'},
   {component: ContactComponent, path: "contact"},
+  {component: ForgotPasswordComponent, path: "forgotPassword"},
   {path: '**', redirectTo: '/home'}
 ];
 

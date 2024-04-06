@@ -19,6 +19,7 @@ import { RegisterComponent } from './register/register.component';
 import { AddQuestionComponent } from './add-question/add-question.component';
 import { DeleteQuestionComponent } from './delete-question/delete-question.component';
 import { ContactComponent } from './contact/contact.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ContactComponent } from './contact/contact.component';
     AddQuestionComponent,
     DeleteQuestionComponent,
     ContactComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
