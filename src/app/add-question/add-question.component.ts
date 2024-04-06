@@ -32,7 +32,7 @@ export class AddQuestionComponent {
     console.log(this.options);
     console.log(this.correct_answer);
     console.log(this.difficulty_level);
-    const newQuestion: Question = {
+    const newQuestion: Omit<Question, '_id'> = {
       subject: this.subject,
       question: this.question,
       options: this.options,

@@ -1,10 +1,56 @@
+<div *ngIf="editMode" class="overlay"></div>
+
 <div class="center-container">
-    <h3>Delete your questions</h3>
-    <div *ngFor="let question of questions; let i = index" class="question-container">
-        <p>{{i+1}}. {{question.question}}</p>
-        <button (click)="deleteQuestion(question.question)" class="delete-button"><span class="material-symbols-outlined">delete</span></button>
+    <h3>Edit your questions</h3>
+    <div *ngFor="let data of questions; let i = index" class="question-container">
+        <p>{{i+1}}. {{data.question}}</p>
+        <button (click)="deleteQuestion(data.question)" class="delete-button"><span class="material-symbols-outlined">delete</span></button>
+        <button (click)="editQuestion(data)" class="edit-button"><span class="material-symbols-outlined">edit</span></button>
     </div>
+    <div *ngIf="editMode" class="form-container">
+        <button (click)="closeOverlayBox()" class="close-button"><span class="material-symbols-outlined">close</span></button>
+        <br>
+        <br>
+        <form class="form" #updateForm="ngForm">
+            <div class="form-outline mb-4">
+                Subject: <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter subject" [(ngModel)]="subject" name="subject" #subjectField="ngModel" [ngModelOptions]="{standalone:true}" required/>
+            </div>
+
+            <div class="form-outline mb-4">
+              Question: <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter question" [(ngModel)]="question" name="question" #questionField="ngModel"  [ngModelOptions]="{standalone:true}" required/>
+            </div>
+
+            <div class="form-outline mb-4">
+                Option 1: <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter first option" [(ngModel)]="option1" name="option1" #option1Field="ngModel" [ngModelOptions]="{standalone:true}" required/>
+            </div>
+
+            <div class="form-outline mb-4">
+                Option 2: <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter second option" [(ngModel)]="option2" name="option2" #option2Field="ngModel" [ngModelOptions]="{standalone:true}" required/>
+            </div>
+
+            <div class="form-outline mb-4">
+                Option 3: <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter third option" [(ngModel)]="option3" name="option3" #option3Field="ngModel" [ngModelOptions]="{standalone:true}" required/>
+            </div>
+
+            <div class="form-outline mb-4">
+                Option 4: <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter fourth option" [(ngModel)]="option4" name="option4" #option4Field="ngModel"  [ngModelOptions]="{standalone:true}" required/>
+            </div>
+            
+            <div class="form-outline mb-3">
+                Correct Option: <input type="text" id="form3Example4" class="form-control form-control-lg" placeholder="Enter the correct option" [(ngModel)]="correct_answer" name="correct_answer" #correctAnswerField="ngModel" [ngModelOptions]="{standalone:true}" required/>
+            </div>
+
+            <div class="form-outline mb-3">
+                Difficulty Level: <input type="text" id="form3Example4" class="form-control form-control-lg" placeholder="Enter difficulty level" [(ngModel)]="difficulty_level" name="difficulty_level" #difficultyLevelField="ngModel" [ngModelOptions]="{standalone:true}" required/>
+            </div>
+
+            <div class="center-container">
+                <button type="submit" (click)="submitChanges()" class="submit-changes-button" [disabled]="!subjectField.valid || !questionField.valid || !option1Field.valid || !option2Field.valid || !option3Field.valid || !option4Field.valid || !correctAnswerField.valid || !difficultyLevelField.valid">Submit the Changes</button>
+            </div>
+            
+          </form>
+        </div>
     <br>
     <br>
-    <button (click)="deletionComplete()" class="delete-completion-button">Done Deleting</button>
+    <button (click)="deletionComplete()" class="delete-completion-button">Done Editing</button>
 </div>

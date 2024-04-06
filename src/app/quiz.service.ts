@@ -50,7 +50,7 @@ export class QuizService {
     return this.http.get<Question[]>(`${this.baseUrl}`);
   }
 
-  addQuestion(question: Question): Observable<Question> {
+  addQuestion(question: Partial<Question>): Observable<Question> {
     return this.http.post<Question>(`${this.baseUrl}/add`, question);
   }
 
