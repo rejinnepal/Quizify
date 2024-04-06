@@ -9,7 +9,7 @@
         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
             <h3> Quizify welcomes you!</h3>
             <p *ngIf="alreadyRegistered">⚠️You are already registered wih this email address. Want to <a routerLink="/login">login</a> instead?⚠️</p>
-          <form>
+          <form #updateForm="ngForm">
   
             <div class="form-outline mb-4">
                 <input type="text" id="first_name" class="form-control form-control-lg" placeholder="Enter your first name" [(ngModel)]="first_name" name="first_name" #firstNameField="ngModel" [ngModelOptions]="{standalone:true}" required/>

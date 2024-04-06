@@ -5,7 +5,7 @@
         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
             <h4> Thank you for you helping this community by adding a question!</h4>
 
-          <form class="form">
+          <form class="form" #updateForm="ngForm">
   
             <div class="form-outline mb-4">
                 <input type="text" id="form3Example3" class="form-control form-control-lg" placeholder="Enter subject" [(ngModel)]="subject" name="subject" #subjectField="ngModel" [ngModelOptions]="{standalone:true}" required/>

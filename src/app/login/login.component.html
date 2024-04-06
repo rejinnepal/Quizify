@@ -10,7 +10,7 @@
           <h3> Welcome Back!</h3>
           <p *ngIf="isEmailNotExists">⚠️This email is not registered. Want to <a routerLink="/register">register</a> instead?⚠️</p>
           <p *ngIf="isPasswordIncorrect">⚠️Your password is incorrect!⚠️</p>
-        <form>
+        <form #updateForm="ngForm">
 
           <div class="form-outline mb-4">
             <input type="email" id="form3Example3" class="form-control form-control-lg" placeholder="Enter email address" [(ngModel)]="email" name="email" #emailField="ngModel" [ngModelOptions]="{standalone:true}" required/>
