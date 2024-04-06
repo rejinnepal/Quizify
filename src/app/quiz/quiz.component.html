@@ -50,7 +50,7 @@
         <p>Number of questions: {{numberofQuestionsSelected}}</p>
     </div>
         
-    <div class="center-container" *ngIf="preferencesSet">
+    <div class="center-container" *ngIf="preferencesSet && !quizSubmitted">
         Please enter the correct answer.
         <div *ngFor="let question of quizQuestions; let i = index" class="flash-card">
             <h5>{{i+1}}. {{ question.question }}</h5>
@@ -67,7 +67,6 @@
     </div>
     
     <div *ngIf="quizSubmitted" class="score-results-container">
-        <p style="text-align:center;">Here are your results</p>
         <br>
         <h2 style="text-align:center;">Score: {{totalScore}} / {{totalAttempted}}</h2>
         <table class="table table-striped">
