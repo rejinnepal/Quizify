@@ -23,7 +23,7 @@ export class QuizComponent {
   totalAttempted: Number = 0;
   difficultyLevels: Number[] = [1, 2, 3, 4, 5];
   difficultyLevelSelected: Number = 1;
-  subjects: String[] = ["Computer Science", "Physics", "Mathematics", "Spanish", "Chemistry"];
+  subjects: String[] = ["All", "Computer Science", "Physics", "Mathematics", "Spanish", "Chemistry"];
   subjectSelected: String = "";
   numberOfQuestions: Number[] = [10, 20, 30, 40, 50];
   numberofQuestionsSelected: Number = 20;
@@ -71,13 +71,26 @@ export class QuizComponent {
   fetchQuestions(difficultyLevelSelected: Number, subjectSelected: String, numberofQuestionsSelected: Number) : Question[] {
     this.preferencesSet = true;
     var count = 0;
-    for (let question of this.questions){
-      if (question.subject == subjectSelected && question.difficulty_level <= difficultyLevelSelected){
-        this.quizQuestions.push(question);
-        count += 1;
+
+    if (subjectSelected == "All"){
+      for (let question of this.questions){
+        if (question.difficulty_level <= difficultyLevelSelected){
+          this.quizQuestions.push(question);
+          count += 1;
+        }
+        if (count > (numberofQuestionsSelected as number)){
+          return this.quizQuestions;
+        }
       }
-      if (count > (numberofQuestionsSelected as number)){
-        return this.quizQuestions
+    } else {
+      for (let question of this.questions){
+        if (question.subject == subjectSelected && question.difficulty_level <= difficultyLevelSelected){
+          this.quizQuestions.push(question);
+          count += 1;
+        }
+        if (count > (numberofQuestionsSelected as number)){
+          return this.quizQuestions
+        }
       }
     }
     console.log(this.difficultyLevelSelected);
