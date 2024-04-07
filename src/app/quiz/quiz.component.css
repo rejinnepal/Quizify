@@ -127,3 +127,11 @@ font-weight: bold;
     height: 200px;
 }
 
+.retake-quiz-button {
+    padding: 5px;
+    display: flex;
+    border-radius: 8px;
+    background-color: yellow;
+    width: 200px;
+}
+

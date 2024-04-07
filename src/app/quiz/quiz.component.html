@@ -92,6 +92,9 @@
     </div>
     
     <div class="edit-question-button-container" *ngIf="quizSubmitted">
+        <button class="retake-quiz-button" (click)="retakeQuiz()">
+            <span class="material-symbols-outlined">refresh</span>&nbsp; Retake quiz
+        </button>
         <button class="add-questions-button" routerLink="/addQuestion">
             <span class="material-symbols-outlined">add</span>&nbsp; Add more questions
         </button>

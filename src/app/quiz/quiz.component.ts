@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { QuizService } from '../quiz.service';
 import { Question } from '../question.model';
 import { FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
@@ -21,14 +22,14 @@ export class QuizComponent {
   eachScore: number = 1;
   totalScore: Number = 0;
   totalAttempted: Number = 0;
-  difficultyLevels: Number[] = [1, 2, 3, 4, 5];
-  difficultyLevelSelected: Number = 1;
+  difficultyLevels: number[] = [1, 2, 3, 4, 5];
+  difficultyLevelSelected: number | null = null;
   subjects: String[] = ["All", "Computer Science", "Physics", "Mathematics", "Spanish", "Chemistry"];
   subjectSelected: String = "";
-  numberOfQuestions: Number[] = [10, 20, 30, 40, 50];
-  numberofQuestionsSelected: Number = 20;
+  numberOfQuestions: number[] = [10, 20, 30, 40, 50];
+  numberofQuestionsSelected: number | null = null;
 
-  constructor(private quizService: QuizService) { }
+  constructor(private quizService: QuizService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loadQuestions();
@@ -68,78 +69,41 @@ export class QuizComponent {
     );
   }
 
-  fetchQuestions(difficultyLevelSelected: Number, subjectSelected: String, numberofQuestionsSelected: Number) : Question[] {
+  fetchQuestions(difficultyLevelSelected: Number | null, subjectSelected: String, numberofQuestionsSelected: Number | null) : Question[] {
     this.preferencesSet = true;
     var count = 0;
 
-    if (subjectSelected == "All"){
+    const effectiveDifficultyLevel = difficultyLevelSelected !== null ? difficultyLevelSelected : Math.max(...this.difficultyLevels);
+    const effectiveNumberOfQuestionsSelected = numberofQuestionsSelected !== null ? numberofQuestionsSelected : Math.max(...this.numberOfQuestions);
+    const effectiveSubjectSelected = subjectSelected !== "" ? subjectSelected : "All";
+
+    if (effectiveSubjectSelected == "All"){
       for (let question of this.questions){
-        if (question.difficulty_level <= difficultyLevelSelected){
+        if (question.difficulty_level <= effectiveDifficultyLevel){
           this.quizQuestions.push(question);
           count += 1;
         }
-        if (count > (numberofQuestionsSelected as number)){
+        if (count == (effectiveNumberOfQuestionsSelected as number)){
           return this.quizQuestions;
         }
       }
     } else {
       for (let question of this.questions){
-        if (question.subject == subjectSelected && question.difficulty_level <= difficultyLevelSelected){
+        if (question.subject == effectiveSubjectSelected && question.difficulty_level <= effectiveDifficultyLevel){
           this.quizQuestions.push(question);
           count += 1;
         }
-        if (count > (numberofQuestionsSelected as number)){
+        if (count == (effectiveNumberOfQuestionsSelected as number)){
           return this.quizQuestions
         }
       }
     }
-    console.log(this.difficultyLevelSelected);
-    console.log(this.subjectSelected);
-    console.log(this.numberofQuestionsSelected);
     return this.quizQuestions;
   }
 
-
-
-
-
-
-  // addQuestion(): void {
-  //   if (this.newQuestion.trim()) {
-  //     this.quizService.addQuestion(this.newQuestion.trim()).subscribe(
-  //       () => {
-  //         this.loadQuestions();
-  //         this.newQuestion = '';
-  //       },
-  //       error => console.error('Error adding question:', error)
-  //     );
-  //   }
-  // }
-
-  // deleteQuestion(id: string): void {
-  //   this.quizService.deleteQuestion(id).subscribe(
-  //     () => this.loadQuestions(),
-  //     error => console.error('Error deleting question:', error)
-  //   );
-  // }
-
-  // submitQuestion(): void {
-  //   this.quizService.addQuestion(this.newQuestion).subscribe(
-  //     () => {
-  //       this.newQuestion = {
-  //         subject: '',
-  //         question: '',
-  //         options: ['', '', '', ''],
-  //         correctOption: '',
-  //         difficultyLevel: ''
-  //       };
-  //     },
-  //     error => {
-  //       console.error('Error submitting question:', error);
-  //     }
-  //   );
-  // }
-
-
-  
+  retakeQuiz(){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate(['.'], {relativeTo: this.route});
+    });
+  }
 }
