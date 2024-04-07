@@ -24,7 +24,7 @@ export class QuizComponent {
   totalAttempted: Number = 0;
   difficultyLevels: number[] = [1, 2, 3, 4, 5];
   difficultyLevelSelected: number | null = null;
-  subjects: String[] = ["All", "Computer Science", "Physics", "Mathematics", "Spanish", "Chemistry"];
+  subjects: String[] = ["All", "Computer Science", "Physics", "Mathematics", "Spanish", "Chemistry", "Biology"];
   subjectSelected: String = "";
   numberOfQuestions: number[] = [10, 20, 30, 40, 50];
   numberofQuestionsSelected: number | null = null;
@@ -69,35 +69,30 @@ export class QuizComponent {
     );
   }
 
-  fetchQuestions(difficultyLevelSelected: Number | null, subjectSelected: String, numberofQuestionsSelected: Number | null) : Question[] {
+  shuffleArray(array: any[]): any[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  fetchQuestions(difficultyLevelSelected: number | null, subjectSelected: String, numberofQuestionsSelected: number | null) : Question[] {
     this.preferencesSet = true;
-    var count = 0;
+    this.quizQuestions = [];
 
     const effectiveDifficultyLevel = difficultyLevelSelected !== null ? difficultyLevelSelected : Math.max(...this.difficultyLevels);
     const effectiveNumberOfQuestionsSelected = numberofQuestionsSelected !== null ? numberofQuestionsSelected : Math.max(...this.numberOfQuestions);
     const effectiveSubjectSelected = subjectSelected !== "" ? subjectSelected : "All";
 
-    if (effectiveSubjectSelected == "All"){
-      for (let question of this.questions){
-        if (question.difficulty_level <= effectiveDifficultyLevel){
-          this.quizQuestions.push(question);
-          count += 1;
-        }
-        if (count == (effectiveNumberOfQuestionsSelected as number)){
-          return this.quizQuestions;
-        }
-      }
-    } else {
-      for (let question of this.questions){
-        if (question.subject == effectiveSubjectSelected && question.difficulty_level <= effectiveDifficultyLevel){
-          this.quizQuestions.push(question);
-          count += 1;
-        }
-        if (count == (effectiveNumberOfQuestionsSelected as number)){
-          return this.quizQuestions
-        }
-      }
-    }
+    let filteredQuestions = this.questions.filter(question => 
+      question.subject === effectiveSubjectSelected || effectiveSubjectSelected === "All"
+    ).filter(question => 
+      +question.difficulty_level <= effectiveDifficultyLevel
+    );
+
+    let shuffledQuestions = this.shuffleArray(filteredQuestions);
+    this.quizQuestions = shuffledQuestions.slice(0, effectiveNumberOfQuestionsSelected);
     return this.quizQuestions;
   }
 
