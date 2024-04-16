@@ -104,184 +104,65 @@ export class QuizComponent {
     });
   }
 
-  // downloadResults() {
-  //   const data = document.getElementById('score-results-container') as HTMLElement;
+  downloadResults() {
+    const data = document.getElementById('score-results-container') as HTMLElement;
+    const button = document.getElementById('download-results-button') as HTMLElement;
+    button.style.display = 'none';
 
-  //   html2canvas(data, { scale: 2 }).then(canvas => {
-  //       const imgWidth = 208; // width of the PDF page
-  //       const imgHeight = canvas.height * imgWidth / canvas.width; // height of the image scaled to fit the PDF page width
-  //       const pageHeight = 295;  // height of the PDF page
-  //       const contentDataURL = canvas.toDataURL('image/png');
-  //       const pdf = new jsPDF('p', 'mm', 'a4');
-  //       const topMargin = 10;
-  //       const leftMargin = 0;
-  //       const logoImg = new Image();
-  //       logoImg.src = 'assets/path-to-your-logo.png'; 
+    html2canvas(data, { scale: 2 }).then(canvas => {
+        const contentDataURL = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgWidth = 208;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
 
-  //       let position = 0;
-  //       if (imgHeight > pageHeight) {
-  //           let heightLeft = imgHeight;
-  //           while (heightLeft >= 0) {
-  //               pdf.addImage(contentDataURL, 'PNG', leftMargin, position, imgWidth, imgHeight);
-  //               heightLeft -= pageHeight;
-  //               if (heightLeft > 0) {
-  //                   position = heightLeft - imgHeight;
-  //                   pdf.addPage();
-  //               }
-  //           }
-  //       } else {
-  //           pdf.addImage(contentDataURL, 'PNG', leftMargin, topMargin, imgWidth, imgHeight);
-  //       }
+        const logoImg = new Image();
+        logoImg.src = '../../assets/656e9d671ff40834d6f330d3_CO7LsOvIovcCEAE=.png';
+        logoImg.onload = () => {
+            const logoWidth = 60;
+            const logoHeight = 30;
+            const xLogoPos = (pageWidth / 2) - (logoWidth / 2);
+            pdf.addImage(logoImg, 'PNG', xLogoPos, 10, logoWidth, logoHeight);
 
-  //       pdf.save('quiz-results.pdf'); // Download the PDF
-  //   });
-  // }
+            const textPositionY = logoHeight + 25;
+            pdf.setFontSize(12);
+            pdf.text('Unofficial Transcript', pageWidth / 2, textPositionY, { align: 'center' });
 
-  // downloadResults() {
-  //   const data = document.getElementById('score-results-container') as HTMLElement;
+            const additionalTextY = textPositionY + 10;
+            pdf.setFontSize(10);
+            pdf.text('This is not an official report. This is made available only for unofficial purposes.', pageWidth / 2, additionalTextY, { align: 'center' });
 
-  //   html2canvas(data, { scale: 2 }).then(canvas => {
-  //       const contentDataURL = canvas.toDataURL('image/png');
-  //       const pdf = new jsPDF('p', 'mm', 'a4');
-  //       const imgWidth = 208;
-  //       const imgHeight = canvas.height * imgWidth / canvas.width;  // height of the image scaled to fit the PDF page width
-  //       const pageWidth = pdf.internal.pageSize.getWidth();
+            const contentTopMargin = additionalTextY + 10; 
 
-  //       const logoImg = new Image();
-  //       logoImg.src = '../../assets/656e9d671ff40834d6f330d3_CO7LsOvIovcCEAE=.png';  // Adjust the path as necessary
-  //       logoImg.onload = () => {
-  //           const logoWidth = 60;  // width of the logo
-  //           const logoHeight = 30;  // height of the logo
-  //           const xLogoPos = (pageWidth / 2) - (logoWidth / 2);  // Center the logo
-  //           pdf.addImage(logoImg, 'PNG', xLogoPos, 10, logoWidth, logoHeight);
+            let contentHeightRemaining = imgHeight;
+            let contentPositionY = contentTopMargin;
 
-  //           const textPositionY = logoHeight + 25;
-  //           pdf.setFontSize(30);  // Set the text size
-  //           pdf.text('Unofficial Transcript', pageWidth / 2, textPositionY, { align: 'center'});
-  //           pdf.setFontSize(10);  // Set the text size
-  //           pdf.text('This is not an official report. This is made available only for unofficial purposes.', pageWidth / 2, textPositionY, { align: 'center' });
+            while (contentHeightRemaining > 0) {
+                let spaceOnPage = pageHeight - contentPositionY - 10;
+                if (contentHeightRemaining > spaceOnPage) {
+                    pdf.addImage(contentDataURL, 'PNG', 0, contentPositionY, imgWidth, spaceOnPage, undefined, 'FAST');
+                    pdf.addPage(); 
+                    contentHeightRemaining -= spaceOnPage;
+                    contentPositionY = 0; 
+                } else {
+                    pdf.addImage(contentDataURL, 'PNG', 0, contentPositionY, imgWidth, contentHeightRemaining);
+                    contentHeightRemaining = 0;
+                }
+            }
 
-  //           const topMargin = logoHeight + 20; 
-  //           pdf.addImage(contentDataURL, 'PNG', 0, topMargin, imgWidth, imgHeight);
+            pdf.save('Quizify-Score-Results.pdf');
+            button.style.display = '';
+        };
 
-  //           pdf.save('Quizify-Score-Results.pdf');
-  //       };
-
-  //       logoImg.onerror = () => {
-  //           console.error('Failed to load logo image');
-  //           pdf.addImage(contentDataURL, 'PNG', 0, 10, imgWidth, imgHeight);
-  //           pdf.save('Quizify-Score-Results.pdf');
-  //       };
-  //   });
-  // }
-
-//   downloadResults() {
-//     const data = document.getElementById('score-results-container') as HTMLElement;
-//     const button = document.getElementById('download-results-button') as HTMLElement;
-//     button.style.display = 'none';
-
-//     html2canvas(data, { scale: 2 }).then(canvas => {
-//         const contentDataURL = canvas.toDataURL('image/png');
-//         const pdf = new jsPDF('p', 'mm', 'a4');
-//         const imgWidth = 208;
-//         const pageWidth = pdf.internal.pageSize.getWidth();
-//         const imgHeight = canvas.height * imgWidth / canvas.width;  // height of the image scaled to fit the PDF page width
-//         // const pageWidth = pdf.internal.pageSize.getWidth();
-
-//         const logoImg = new Image();
-//         logoImg.src = '../../assets/656e9d671ff40834d6f330d3_CO7LsOvIovcCEAE=.png';  // Adjust the path as necessary
-//         logoImg.onload = () => {
-//             const logoWidth = 60;  // width of the logo
-//             const logoHeight = 30;  // height of the logo
-//             const xLogoPos = (pageWidth / 2) - (logoWidth / 2);  // Center the logo
-//             pdf.addImage(logoImg, 'PNG', xLogoPos, 10, logoWidth, logoHeight);
-
-//             // Position for the "Unofficial Transcript" text
-//             const textPositionY = logoHeight + 25;
-//             pdf.setFontSize(12);  // Adjust the text size for the title
-//             pdf.text('Unofficial Transcript', pageWidth / 2, textPositionY, { align: 'center' });
-
-//             // Additional explanation text below "Unofficial Transcript"
-//             const additionalTextY = textPositionY + 10;  // Adjust for spacing
-//             pdf.setFontSize(10);  // Reset to smaller text for the explanation
-//             pdf.text('This is not an official report. This is made available only for unofficial purposes.', pageWidth / 2, additionalTextY, { align: 'center' });
-
-//             // Calculate the top margin for the main content to start below all text
-//             const topMargin = additionalTextY + 10; 
-//             pdf.addImage(contentDataURL, 'PNG', 0, topMargin, imgWidth, imgHeight);
-
-//             pdf.save('Quizify-Score-Results.pdf');
-
-//             button.style.display = '';
-//         };
-
-//         logoImg.onerror = () => {
-//             console.error('Failed to load logo image');
-//             pdf.addImage(contentDataURL, 'PNG', 0, 10, imgWidth, imgHeight);
-//             pdf.save('Quizify-Score-Results.pdf');
-//         };
-//     });
-// }
-
-downloadResults() {
-  const data = document.getElementById('score-results-container') as HTMLElement;
-  const button = document.getElementById('download-results-button') as HTMLElement;
-  button.style.display = 'none';
-
-  html2canvas(data, { scale: 2 }).then(canvas => {
-      const contentDataURL = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgWidth = 208;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-
-      const logoImg = new Image();
-      logoImg.src = '../../assets/656e9d671ff40834d6f330d3_CO7LsOvIovcCEAE=.png';
-      logoImg.onload = () => {
-          const logoWidth = 60;
-          const logoHeight = 30;
-          const xLogoPos = (pageWidth / 2) - (logoWidth / 2);
-          pdf.addImage(logoImg, 'PNG', xLogoPos, 10, logoWidth, logoHeight);
-
-          const textPositionY = logoHeight + 25;
-          pdf.setFontSize(12);
-          pdf.text('Unofficial Transcript', pageWidth / 2, textPositionY, { align: 'center' });
-
-          const additionalTextY = textPositionY + 10;
-          pdf.setFontSize(10);
-          pdf.text('This is not an official report. This is made available only for unofficial purposes.', pageWidth / 2, additionalTextY, { align: 'center' });
-
-          const contentTopMargin = additionalTextY + 10; 
-
-          let contentHeightRemaining = imgHeight;
-          let contentPositionY = contentTopMargin;
-
-          while (contentHeightRemaining > 0) {
-              let spaceOnPage = pageHeight - contentPositionY - 10;
-              if (contentHeightRemaining > spaceOnPage) {
-                  pdf.addImage(contentDataURL, 'PNG', 0, contentPositionY, imgWidth, spaceOnPage, undefined, 'FAST');
-                  pdf.addPage(); 
-                  contentHeightRemaining -= spaceOnPage;
-                  contentPositionY = 0; 
-              } else {
-                  pdf.addImage(contentDataURL, 'PNG', 0, contentPositionY, imgWidth, contentHeightRemaining);
-                  contentHeightRemaining = 0;
-              }
-          }
-
-          pdf.save('Quizify-Score-Results.pdf');
-          button.style.display = '';
-      };
-
-      logoImg.onerror = () => {
-          console.error('Failed to load logo image');
-          button.style.display = '';
-          pdf.addImage(contentDataURL, 'PNG', 0, 10, imgWidth, imgHeight);
-          pdf.save('Quizify-Score-Results.pdf');
-      };
-  });
-}
+        logoImg.onerror = () => {
+            console.error('Failed to load logo image');
+            button.style.display = '';
+            pdf.addImage(contentDataURL, 'PNG', 0, 10, imgWidth, imgHeight);
+            pdf.save('Quizify-Score-Results.pdf');
+        };
+    });
+  }
 
 
 }
