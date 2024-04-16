@@ -66,7 +66,7 @@
         <button class="submit-quiz-button" (click)="submitQuiz()">Submit Quiz</button>
     </div>
     
-    <div *ngIf="quizSubmitted" class="score-results-container">
+    <div *ngIf="quizSubmitted" class="score-results-container" id="score-results-container">
         <br>
         <h2 style="text-align:center;">Score: {{totalScore}} / {{totalAttempted}}</h2>
         <table class="table table-striped">
@@ -88,7 +88,8 @@
                 <td>{{result.score}}</td>
                 </tr>
             </tbody>
-            </table>
+        </table>
+        <button class="download-results-button submit-quiz-button" id="download-results-button" (click)="downloadResults()">Download Results</button>
     </div>
     
     <div class="edit-question-button-container" *ngIf="quizSubmitted">
